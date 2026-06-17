@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITTA - Stok Bahan Ajar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="dataBahanAja.js"></script>
+</head>
+<body>
+    <div class="container" id="appStok">
+        <div class="form-card">
+            <h3>{{ formMode === 'tambah' ? 'Tambah Bahan Ajar Baru' : 'Edit Stok Bahan Ajar' }}</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div><label>Kode MK: <input v-model="form.kodeMK" placeholder="Contoh: MATA4110"></label></div>
+                <div><label>Nama MK: <input v-model="form.namaMK" placeholder="Nama Mata Kuliah"></label></div>
+                <div><label>Kategori: 
+                    <select v-model="form.kategori">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option v-for="k in kategoriList" :value="k">{{ k }}</option>
+                    </select>
+                </label></div>
+                <div><label>UT-Daerah: 
+                    <select v-model="form.upbjj">
+                        <option value="">-- Pilih UT-Daerah --</option>
+                        <option v-for="up in upbjjList" :value="up">{{ up }}</option>
+                    </select>
+                </label></div>
+                <div><label>Lokasi Rak: <input v-model="form.lokasiRak" placeholder="Contoh: Rak A1"></label></div>
+                <div><label>Jumlah Stok: <input type="number" v-model.number="form.qty"></label></div>
+                <div><label>Safety Stok: <input type="number" v-model.number="form.safety"></label></div>
+                <div><label>Catatan HTML: <input v-model="form.catatanHTML" placeholder="Contoh: <i>Aman</i>"></label></div>
+            </div>
+            <div v-if="errors.length" class="error" v-for="err in errors">{{ err }}</div>
+            <div style="margin-top: 15px;">
+                <button @click="saveStok" class="btn btn-primary">Simpan</button>
+                <button @click="cancelForm" class="btn btn-secondary">Batal</button>
+            </div>
+        </div><div class="form-card">
+            <h3>{{ formMode === 'tambah' ? 'Tambah Bahan Ajar Baru' : 'Edit Stok Bahan Ajar' }}</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div><label>Kode MK: <input v-model="form.kodeMK" placeholder="Contoh: MATA4110"></label></div>
+                <div><label>Nama MK: <input v-model="form.namaMK" placeholder="Nama Mata Kuliah"></label></div>
+                <div><label>Kategori: 
+                    <select v-model="form.kategori">
+                        <option value="">-- Pilih Kategori --</option>
+                        <option v-for="k in kategoriList" :value="k">{{ k }}</option>
+                    </select>
+                </label></div>
+                <div><label>UT-Daerah: 
+                    <select v-model="form.upbjj">
+                        <option value="">-- Pilih UT-Daerah --</option>
+                        <option v-for="up in upbjjList" :value="up">{{ up }}</option>
+                    </select>
+                </label></div>
+                <div><label>Lokasi Rak: <input v-model="form.lokasiRak" placeholder="Contoh: Rak A1"></label></div>
+                <div><label>Jumlah Stok: <input type="number" v-model.number="form.qty"></label></div>
+                <div><label>Safety Stok: <input type="number" v-model.number="form.safety"></label></div>
+                <div><label>Catatan HTML: <input v-model="form.catatanHTML" placeholder="Contoh: <i>Aman</i>"></label></div>
+            </div>
+            <div v-if="errors.length" class="error" v-for="err in errors">{{ err }}</div>
+            <div style="margin-top: 15px;">
+                <button @click="saveStok" class="btn btn-primary">Simpan</button>
+                <button @click="cancelForm" class="btn btn-secondary">Batal</button>
+            </div>
+        </div>
+
+    <script src="stock.js"></script>
+</body>
+</html>

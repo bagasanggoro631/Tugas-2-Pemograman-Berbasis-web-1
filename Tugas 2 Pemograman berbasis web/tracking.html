@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITTA - Tracking Delivery Order</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="dataBahanAja.js"></script>
+</head>
+<body>
+    <div class="container" id="appTracking">
+        <h2> racking Delivery Order (DO)</h2>
+        <a href="Index.html" class="btn btn-secondary">⬅ Kembali ke Menu</a>
+
+        <!-- Daftar DO yang sudah ada -->
+        <h3>Daftar DO</h3>
+        <table>
+            <thead><tr><th>Nomor DO</th><th>NIM</th><th>Nama</th><th>Ekspedisi</th><th>Paket</th><th>Tanggal Kirim</th><th>Total Harga</th></tr></thead>
+            <tbody>
+                <tr v-for="item in daftarDO" :key="item.id">
+    <td>{{ item.nomorDO }}</td>
+    <td>{{ item.nim }}</td>
+    <td>{{ item.nama }}</td>
+    <td>{{ item.ekspedisi }}</td>
+    <td>{{ item.paket.namaPaket }}</td>
+    <td>{{ item.tanggalKirim }}</td>
+    <td>{{ formatRupiah(item.totalHarga) }}</td>
+</tr>
+            </tbody>
+        </table>
+
+        <!-- Form Tambah DO Baru -->
+        <div class="form-card">
+            <h3>Tambah Delivery Order Baru</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <div><label>NIM: <input v-model="formDO.nim" placeholder="NIM"></label></div>
+                <div><label>Nama: <input v-model="formDO.nama" placeholder="Nama"></label></div>
+                <div><label>Ekspedisi: 
+                    <select v-model="formDO.ekspedisi">
+                        <option v-for="e in ekspedisiList" :value="e">{{ e }}</option>
+                    </select>
+                </label></div>
+                <div><label>Paket Bahan Ajar:
+                    <select v-model="formDO.paket">
+                        <option v-for="p in paketList" :value="p">{{ p.kodePaket }} - {{ p.namaPaket }}</option>
+                    </select>
+                </label></div>
+                <div><label>Tanggal Kirim: <input type="date" v-model="formDO.tanggalKirim"></label></div>
+            </div>
+            <!-- Detail paket yang dipilih -->
+            <div v-if="formDO.paket" class="detail-paket">
+                <strong>Detail Paket:</strong> {{ formDO.paket.detail }} <br>
+                <strong>Harga:</strong> {{ formatRupiah(formDO.paket.harga) }}
+            </div>
+            <div v-if="errorsDO.length" class="error" v-for="err in errorsDO">{{ err }}</div>
+            <button @click="tambahDO" class="btn btn-primary">Tambah DO</button>
+        </div>
+    </div>
+
+    <script src="tracking.js"></script>
+</body>
+</html>
